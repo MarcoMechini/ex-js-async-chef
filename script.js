@@ -15,6 +15,7 @@ async function getChefBirthday(id) {
     try {
         ricetta = await fetchJson(`https://dummyjson.com/recipes/${id}`)
     } catch (error) {
+        console.error(error);
         throw new Error(`non posso recuperare post id ${id}`);
     }
 
@@ -25,13 +26,12 @@ async function getChefBirthday(id) {
     try {
         chef = await fetchJson(`https://dummyjson.com/users/${ricetta.userId}`)
     } catch (error) {
+        console.error(error);
         throw new Error(`non posso recuperare user id ${ricetta.userId}`);
     }
     if (chef.message) throw new Error(chef.message)
 
-
     return chef.birthDate
-
 
 }
 
@@ -41,6 +41,8 @@ async function getChefBirthday(id) {
         console.log('Data di nascita dello chef:', birthday)
     } catch (error) {
         console.error("Errore:", error.message);
+    } finally {
+        console.log('Fine codice');
     }
 })()
 
